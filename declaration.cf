@@ -1,0 +1,173 @@
+-- programs ------------------------------------------------
+
+entrypoints Program ;
+
+Program.   Program ::= [TopDef] ;
+
+FnDef.	   TopDef ::= Type Ident "(" [Arg] ")" Block ;
+
+GlobDecl.  TopDef ::= Type [Item] ";" ;
+
+GlobFinDecl. TopDef ::= "final" Type [Item] ";" ;
+
+StructDef. TopDef ::= "struct" Ident "{" [StructDecl] "}";
+
+separator nonempty TopDef "" ;
+
+Field. StructDecl ::= Type Ident ";";
+
+separator StructDecl "" ;
+
+StructField. StructField ::= Ident;
+
+separator nonempty StructField "." ;
+
+Arg. 	   Arg ::= Type Ident;
+
+separator  Arg "," ;
+
+-- statements ----------------------------------------------
+
+Block.     Block ::= "{" [Stmt] "}" ;
+
+separator  Stmt "" ;
+
+Empty.     Stmt ::= ";" ;
+
+BStmt.     Stmt ::= Block ;
+
+Decl.      Stmt ::= Type [Item] ";" ;
+
+DeclFinal. Stmt ::= "final" Type [Item] ";" ;
+
+NoInit.    Item ::= Ident ; 
+
+Init.      Item ::= Ident "=" Expr ;
+
+separator nonempty Item "," ;
+
+Ass.       Stmt ::= Ident "=" Expr  ";" ;
+
+ArrAss.    Stmt ::= Ident "[" Integer "]" "=" Expr ";" ;
+
+StructAss. Stmt ::= [StructField] "=" Expr ";" ;
+
+Incr.      Stmt ::= Ident "++"  ";" ;
+
+Decr.      Stmt ::= Ident "--"  ";" ;
+
+Ret.       Stmt ::= "return" Expr ";" ;
+
+VRet.      Stmt ::= "return" ";" ;
+
+Cond.      Stmt ::= "if" "(" Expr ")" Stmt  ;
+
+CondElse.  Stmt ::= "if" "(" Expr ")" Stmt "else" Stmt  ;
+
+While.     Stmt ::= "while" "(" Expr ")" Stmt ;
+
+SExp.      Stmt ::= Expr  ";" ;
+
+FnInDef.   Stmt ::= Type Ident "(" [Arg] ")" Block ;
+
+ConstFor.  Stmt ::= "for" "(" Type Ident "=" Expr "to" Expr ")" Stmt;
+
+Break.     Stmt ::= "break" ";" ;
+
+Continue.  Stmt ::= "continue" ";" ;
+
+Try.       Stmt ::= "try" Block [ Catch ] ;
+
+Catch.     Catch ::= "catch" "(" Arg ")" Block ;
+
+Throw.     Stmt ::= "throw" Expr ";" ;
+
+separator nonempty Catch "" ;
+
+-- Types ---------------------------------------------------
+
+Int.       Type ::= "int" ;
+
+Bool.      Type ::= "boolean" ;
+
+Void.      Type ::= "void" ;
+
+StructType. Type::= Ident ;
+
+FuncType.  Type ::= "fun" "<"[Type] "->" Type ">" ;  
+
+ArrayType. Type ::= "array" "<" Type ">" ;
+
+separator  Type "," ;
+
+-- Expressions ---------------------------------------------
+
+EVar.      Expr6 ::= Ident ;
+
+ENull.     Expr6 ::= "null";
+
+ELitInt.   Expr6 ::= Integer ;
+
+ELitTrue.  Expr6 ::= "true" ;
+
+SLitString. Expr6 ::= String ;
+
+ELitFalse. Expr6 ::= "false" ;
+
+EApp.      Expr6 ::= Ident "(" [Expr] ")" ;
+
+EArray.    Expr6 ::= "[" [Expr] "]";
+
+EArrayIdx. Expr6 ::= Ident "[" Integer "]";
+
+EField.    Expr6 ::= [StructField];
+
+ELambda.   Expr6 ::= "lambda" "(" [Arg] ")" ":" Type  Block ;
+
+Neg.       Expr5 ::= "-" Expr6 ;
+
+Not.       Expr5 ::= "!" Expr6 ;
+
+EMul.      Expr4 ::= Expr4 MulOp Expr5 ;
+
+EAdd.      Expr3 ::= Expr3 AddOp Expr4 ;
+
+ERel.      Expr2 ::= Expr2 RelOp Expr3 ;
+
+EAnd.      Expr1 ::= Expr2 "&&" Expr1 ;
+
+EOr.       Expr ::= Expr1 "||" Expr ;
+
+coercions  Expr 6 ;
+
+separator  Expr "," ;
+
+-- operators -----------------------------------------------
+
+Plus.      AddOp ::= "+" ;
+
+Minus.     AddOp ::= "-" ;
+
+Times.     MulOp ::= "*" ;
+
+Div.       MulOp ::= "/" ;
+
+Mod.       MulOp ::= "%" ;
+
+LTH.       RelOp ::= "<" ;
+
+LE.        RelOp ::= "<=" ;
+
+GTH.       RelOp ::= ">" ;
+
+GE.        RelOp ::= ">=" ;
+
+EQU.       RelOp ::= "==" ;
+
+NE.        RelOp ::= "!=" ;
+
+-- comments ------------------------------------------------
+
+comment    "//" ;
+
+comment    "/*" "*/" ;
