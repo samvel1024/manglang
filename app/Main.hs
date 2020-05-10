@@ -11,9 +11,13 @@ import           ParDeclaration
 import           ErrM
 
 
-usage = do
-  putStrLn "provide an input file name as an argument"
-  exitFailure
 
 main :: IO ()
-main = putStrLn "HELLO WORLD"
+main =
+  case pProgram (myLexer "example.lang") of
+    Bad err -> do
+      putStrLn "Syntax error:"
+      putStrLn err
+      exitFailure
+    Ok tree -> do
+      putStrLn $ show tree
