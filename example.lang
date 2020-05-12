@@ -1,8 +1,8 @@
-struct List {
-	int val;
-	array<char> name;
-	list next;
-}
+//struct List {
+//	int val;
+//	array<char> name;
+//	list next;
+//}
 
 void list_constructor_and_tostring_example(){
 	print(List(10, "HELLO", List(1, null, null)));
@@ -67,4 +67,8 @@ void overloading_example(){
 	}
 	// Since there is no type hierarchy 
 	// all above functions are valid, different functions
+}
+
+void main(){
+
 }

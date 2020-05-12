@@ -9,15 +9,17 @@ import           LexDeclaration
 import           ParDeclaration
 
 import           ErrM
+import           Eval
 
-
-
+-- TODO extract from args
 main :: IO ()
-main =
-  case pProgram (myLexer "example.lang") of
+main = interpretFile "example.lang"
+
+interpretFile :: String -> IO ()
+interpretFile file = do
+  fileContent <- readFile file
+  case pProgram (myLexer fileContent) of
     Bad err -> do
-      putStrLn "Syntax error:"
       putStrLn err
       exitFailure
-    Ok tree -> do
-      putStrLn $ show tree
+    Ok tree -> interpret tree

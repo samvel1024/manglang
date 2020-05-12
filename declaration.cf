@@ -84,6 +84,9 @@ Throw.     Stmt ::= "throw" Expr ";" ;
 
 separator nonempty Catch "" ;
 
+Print.     Stmt ::= "print" "(" Expr ")" ";" ;
+
+
 -- Types ---------------------------------------------------
 
 Int.       Type ::= "int" ;
@@ -91,6 +94,8 @@ Int.       Type ::= "int" ;
 Bool.      Type ::= "boolean" ;
 
 Void.      Type ::= "void" ;
+
+Char.      Type ::=  "char" ;
 
 StructType. Type::= Ident ;
 
