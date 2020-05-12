@@ -1,4 +1,4 @@
 build:
-	bash -c "mkdir -p src/parser && rm -rf src/parser/* && bnfc -m -o src/parser declaration.cf && cd src/parser && make"
+	bash -c "mkdir -p src/parser && cd src/parser && rm -rf ./* && bnfc -m ../../declaration.cf && make"
 	cabal build
 	mv ./dist/build/lelolang-exe/lelolang-exe interpreter
