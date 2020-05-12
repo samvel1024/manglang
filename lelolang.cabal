@@ -36,7 +36,6 @@ executable lelolang-exe
     ParDeclaration
     PrintDeclaration
     SkelDeclaration
-    Eval
   hs-source-dirs:
       src/parser
       src

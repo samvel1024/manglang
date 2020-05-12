@@ -1,74 +1,38 @@
-//struct List {
-//	int val;
-//	array<char> name;
-//	list next;
-//}
-
-void list_constructor_and_tostring_example(){
-	print(List(10, "HELLO", List(1, null, null)));
-	//prints List(val=10,name="HELLO",next=List(val=1,name=null,next=null));
+int fibbonacci(int n) {
+   if(n == 0){
+      return 0;
+   } else if(n == 1) {
+      return 1;
+   } else {
+      return (fibbonacci(n-1) + fibbonacci(n-2));
+   }
 }
 
-void const_example(){
-	final int i = 0;
-	i = 2; // fail
-	final array<int> arr = [1, 2, 3];
-	arr[0] = arr[0] + 2; // OK
-	arr = [4, 5, 6]; // fail
+
+int repeat(char c, int n){
+    for(int i = 0 to n){
+        print(c);
+    }
 }
 
-void capturing_example(){
-	void execute(fun <void -> void> cb){
-		cb();
-	}
-	int count = 0;
-	//List l = List(1, "", null);
-	execute(lambda(): void {
-		count = 10;
-		l.val = 2;
-	});
-	print(count); // prints 10
-	print(l.val); // prints 2
+int sum(int n){
+    int s = 0;
+    while(n >0){
+        s = s + n;
+        n--;
+    }
+    return s;
 }
 
-void do_divide(int lhs, int rhs){
-	return lhs/rhs;
+
+int main(){
+    print(fibbonacci(6));
+    repeat('a', 10);
+    print(sum(10));
 }
 
-void uncaught_exception_example(){
-	do_divide(10, 0);
-	// if uncaught will fail with the following message 
-	// (line numers are random)
-	// RuntimeError: Division by 0
-    // at do_divide(int,int): line 12
-    // at uncaught_exception_example(): line 17
-    // at main(): line 104
-}
-
-void try_catch_example(){
-	try {
-		throw List(1, null, null);
-	} catch (List ex){
-		print("LIST");
-	} catch (int a){
-		print("INT");
-	} catch (List ex){
-		print("LIST2");
-	}
-	// will print LIST
-}
-
-void overloading_example(){
-	void f(int a){
-	}
-	void f(char b){
-	}
-	int f(int a){
-	}
-	// Since there is no type hierarchy 
-	// all above functions are valid, different functions
-}
-
-void main(){
-
-}
+// TODO
+// Exceptions
+// Lambdas
+// Typechecker
+// Structs

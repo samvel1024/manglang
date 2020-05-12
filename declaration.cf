@@ -10,17 +10,7 @@ GlobDecl.  TopDef ::= Type [Item] ";" ;
 
 GlobFinDecl. TopDef ::= "final" Type [Item] ";" ;
 
-StructDef. TopDef ::= "struct" Ident "{" [StructDecl] "}";
-
 separator nonempty TopDef "" ;
-
-Field. StructDecl ::= Type Ident ";";
-
-separator StructDecl "" ;
-
-StructField. StructField ::= Ident;
-
-separator nonempty StructField "." ;
 
 Arg. 	   Arg ::= Type Ident;
 
@@ -48,10 +38,6 @@ separator nonempty Item "," ;
 
 Ass.       Stmt ::= Ident "=" Expr  ";" ;
 
-ArrAss.    Stmt ::= Ident "[" Integer "]" "=" Expr ";" ;
-
-StructAss. Stmt ::= [StructField] "=" Expr ";" ;
-
 Incr.      Stmt ::= Ident "++"  ";" ;
 
 Decr.      Stmt ::= Ident "--"  ";" ;
@@ -76,16 +62,7 @@ Break.     Stmt ::= "break" ";" ;
 
 Continue.  Stmt ::= "continue" ";" ;
 
-Try.       Stmt ::= "try" Block [ Catch ] ;
-
-Catch.     Catch ::= "catch" "(" Arg ")" Block ;
-
-Throw.     Stmt ::= "throw" Expr ";" ;
-
-separator nonempty Catch "" ;
-
 Print.     Stmt ::= "print" "(" Expr ")" ";" ;
-
 
 -- Types ---------------------------------------------------
 
@@ -96,12 +73,6 @@ Bool.      Type ::= "boolean" ;
 Void.      Type ::= "void" ;
 
 Char.      Type ::=  "char" ;
-
-StructType. Type::= Ident ;
-
-FuncType.  Type ::= "fun" "<"[Type] "->" Type ">" ;  
-
-ArrayType. Type ::= "array" "<" Type ">" ;
 
 separator  Type "," ;
 
@@ -115,19 +86,11 @@ ELitInt.   Expr6 ::= Integer ;
 
 ELitTrue.  Expr6 ::= "true" ;
 
-SLitString. Expr6 ::= String ;
-
 ELitFalse. Expr6 ::= "false" ;
 
+ELitChar.  Expr6 ::= Char ;
+
 EApp.      Expr6 ::= Ident "(" [Expr] ")" ;
-
-EArray.    Expr6 ::= "[" [Expr] "]";
-
-EArrayIdx. Expr6 ::= Ident "[" Integer "]";
-
-EField.    Expr6 ::= [StructField];
-
-ELambda.   Expr6 ::= "lambda" "(" [Arg] ")" ":" Type  Block ;
 
 Neg.       Expr5 ::= "-" Expr6 ;
 
